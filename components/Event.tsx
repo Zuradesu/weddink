@@ -155,7 +155,7 @@ export default function Event() {
             <span className="h-px w-8 bg-white/20" />
 
             <span className="font-serif text-5xl font-light">
-              18
+              20
             </span>
 
             <span className="h-px w-8 bg-white/20" />
