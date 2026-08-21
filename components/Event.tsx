@@ -270,11 +270,8 @@ export default function Event() {
             </h3>
 
             <p className="mt-3 text-xs leading-relaxed text-white/50">
-              Gedung Pernikahan
+              di kediaman mempelai wanita 
               <br />
-              Jl. Contoh No. 123
-              <br />
-              Malang, Jawa Timur
             </p>
           </motion.div>
 
@@ -306,11 +303,9 @@ export default function Event() {
             </h3>
 
             <p className="mt-3 text-xs leading-relaxed text-white/50">
-              Gedung Pernikahan
-              <br />
-              Jl. Contoh No. 123
-              <br />
-              Malang, Jawa Timur
+                Perumahan Graha Puntadewa Blok D2/17 
+                <br />
+                 Pakisjajar, Pakis, Kab. Malang, Jawa Timur, 65154
             </p>
           </motion.div>
         </div>
