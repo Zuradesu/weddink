@@ -3,15 +3,21 @@
 import { motion } from "framer-motion";
 
 export default function Opening() {
-  const handleOpenInvitation = () => {
-    const section = document.getElementById("wedding-intro");
+const handleOpenInvitation = () => {
+  // 🔊 Play musik
+  window.dispatchEvent(
+    new Event("start-wedding-music")
+  );
 
-    if (!section) return;
+  // Scroll ke section berikutnya
+  const section = document.getElementById("wedding-intro");
 
-    section.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
+  if (!section) return;
+
+  section.scrollIntoView({
+    behavior: "smooth",
+  });
+};
 
   return (
     <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden">
