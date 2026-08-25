@@ -186,7 +186,7 @@ export default function WeddingIntro() {
               delay: 1.5,
             }}
           >
-            28 December 2027
+            20 September 2026
           </motion.p>
         </div>
       </div>
