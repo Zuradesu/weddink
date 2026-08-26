@@ -2,372 +2,300 @@
 
 import { motion } from "framer-motion";
 
+/**
+ * FLORAL ASSETS NEEDED (not included — see chat explanation):
+ * Drop transparent PNGs at these paths for the full "referensi" look.
+ * Without them, the layout still works, just less ornate.
+ *
+ *   /images/florals/bouquet-top.png     -> crystal + rose bouquet above title
+ *   /images/florals/wreath-bride.png    -> floral wreath overlay around bride photo
+ *   /images/florals/wreath-groom.png    -> floral wreath overlay around groom photo
+ *   /images/florals/corner-bloom.png    -> small accent used near closing (optional)
+ *
+ * FONT: script text below uses `font-script`. Add a cursive Google Font
+ * (e.g. Great Vibes / Alex Brush) and map it to that class for the exact
+ * look — otherwise it falls back to italic serif, still readable.
+ */
+
 export default function Couple() {
   return (
     <section
       id="couple"
-      className="relative min-h-[100svh] w-full overflow-hidden px-6 py-24 text-white"
+      className="relative min-h-[100svh] w-full overflow-hidden px-4 py-16 sm:px-6"
     >
       {/* =====================================================
-          ATMOSPHERE
+          FLOATING GOLD SPARKLES
       ====================================================== */}
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
-
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,230,190,0.12),transparent_60%)]" />
+      {[...Array(6)].map((_, i) => (
+        <motion.span
+          key={i}
+          className="pointer-events-none absolute h-1 w-1 rounded-full bg-[#c99a4b]/60"
+          style={{ left: `${12 + i * 15}%`, top: `${8 + (i % 3) * 30}%` }}
+          animate={{ opacity: [0, 1, 0], y: [0, -14, 0] }}
+          transition={{
+            duration: 4 + i,
+            repeat: Infinity,
+            delay: i * 0.6,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
 
       {/* =====================================================
-          DECORATIVE CIRCLES
+          ARCH CARD — gold outline, translucent navy fill so
+          your global video bg still shows through faintly
       ====================================================== */}
 
-      <motion.div
-        className="pointer-events-none absolute -left-32 top-32 h-72 w-72 rounded-full border border-[#e0c89c]/10"
-        animate={{
-          y: [0, 15, 0],
-          rotate: [0, 4, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      <div className="relative mx-auto max-w-md">
+        {/* soft gold glow behind the arch */}
+        <div className="pointer-events-none absolute -inset-4 rounded-t-[260px] rounded-b-[80px] bg-[#c99a4b]/15 blur-2xl" />
 
-      <motion.div
-        className="pointer-events-none absolute -right-32 bottom-32 h-80 w-80 rounded-full border border-[#e0c89c]/10"
-        animate={{
-          y: [0, -18, 0],
-          rotate: [0, -4, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-t-[260px] rounded-b-[80px] border-2 border-[#c99a4b]/80 bg-[#241a10]/78 px-8 py-20 shadow-[0_0_50px_rgba(201,154,75,0.2)] backdrop-blur-[3px] sm:px-10"
+        >
+          {/* subtle inner vignette so text stays readable over video */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#241a10]/40 via-[#241a10]/70 to-[#241a10]/85" />
 
-      {/* =====================================================
-          SIDE DECORATION - LEFT
-      ====================================================== */}
+          <div className="relative z-10 flex flex-col items-center">
 
-      <motion.div
-        className="pointer-events-none absolute left-0 top-28 z-[1] opacity-60"
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 0.6, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-      >
-        <div className="relative h-56 w-28">
-          <div className="absolute left-8 top-0 h-52 w-px rotate-[28deg] bg-[#d8c29a]/40" />
+            {/* =========================================
+                BOUQUET + TITLE
+            ========================================== */}
 
-          <span className="absolute left-0 top-8 rotate-[-35deg] text-5xl text-[#d8c29a]/50">
-            ❧
-          </span>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9 }}
+              className="flex flex-col items-center text-center"
+            >
+              {/* Optional bouquet illustration — remove this img tag if you don't have the asset */}
+              <img
+                src="/images/florals/bouquet-top.png"
+                alt=""
+                aria-hidden="true"
+                className="h-28 w-auto opacity-95 drop-shadow-[0_0_25px_rgba(120,170,255,0.25)]"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = "none";
+                }}
+              />
 
-          <span className="absolute left-7 top-24 rotate-[-10deg] text-4xl text-[#c3aa7e]/50">
-            ❧
-          </span>
+              <h2 className="font-script mt-4 text-5xl italic text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.25)] sm:text-6xl">
+                Bride &amp; Groom
+              </h2>
+            </motion.div>
 
-          <span className="absolute left-0 top-40 rotate-[-45deg] text-3xl text-[#e1cda5]/40">
-            ❀
-          </span>
-        </div>
-      </motion.div>
+            {/* =========================================
+                OPENING MESSAGE
+            ========================================== */}
 
-      {/* =====================================================
-          SIDE DECORATION - RIGHT
-      ====================================================== */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.1 }}
+              className="mt-8 max-w-sm text-center"
+            >
+              <p className="text-base font-semibold leading-relaxed text-white">
+                Assalamu'alaikum Warahmatullahi Wabarakatuh
+              </p>
 
-      <motion.div
-        className="pointer-events-none absolute right-0 top-44 z-[1] opacity-60"
-        initial={{ opacity: 0, x: 20 }}
-        whileInView={{ opacity: 0.6, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.15 }}
-      >
-        <div className="relative h-56 w-28">
-          <div className="absolute right-8 top-0 h-52 w-px rotate-[-28deg] bg-[#d8c29a]/40" />
+              <p className="mt-4 text-base leading-7 text-white/75">
+                Maha Suci Allah yang telah menciptakan makhluk-Nya
+                berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah
+                mengiringi pernikahan kami.
+              </p>
+            </motion.div>
 
-          <span className="absolute right-0 top-8 rotate-[35deg] scale-x-[-1] text-5xl text-[#d8c29a]/50">
-            ❧
-          </span>
+            {/* =========================================
+                BRIDE
+            ========================================== */}
 
-          <span className="absolute right-7 top-24 rotate-[10deg] scale-x-[-1] text-4xl text-[#c3aa7e]/50">
-            ❧
-          </span>
+            <motion.div
+              className="mt-14 flex w-full flex-col items-center text-center"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="relative">
+                <div className="relative h-64 w-52 overflow-hidden rounded-full border-2 border-white/80 bg-[#2e2013] shadow-2xl">
+                  <img
+                    src="/images/1.png"
+                    alt="Mempelai wanita"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
 
-          <span className="absolute right-0 top-40 rotate-[45deg] text-3xl text-[#e1cda5]/40">
-            ❀
-          </span>
-        </div>
-      </motion.div>
+                {/* Optional floral wreath overlay around the photo */}
+                <img
+                  src="/images/florals/wreath-bride.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              </div>
 
-      {/* =====================================================
-          HEADER ORNAMENT
-      ====================================================== */}
+              <p className="font-script mt-8 text-3xl italic text-[#c99a4b]">
+                Putra
+              </p>
 
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.9 }}
-        className="relative z-10 mx-auto mb-7 flex max-w-xs items-center gap-4"
-      >
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#d8c29a]/60" />
+              <h3 className="mt-1 text-3xl font-bold text-white sm:text-4xl">
+                Aryaduta
+              </h3>
 
-        <span className="font-serif text-xl text-[#e2cda2]">
-          ❦
-        </span>
+              <p className="mt-3 text-base font-medium text-white/85">
+                Putri Pertama dari
+              </p>
+              <p className="mt-1 text-base leading-relaxed text-white/75">
+                Bapak Nama Ayah &amp; Ibu Nama Ibu
+              </p>
 
-        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#d8c29a]/60" />
-      </motion.div>
+              {/* Instagram chip */}
+              <a
+                href="https://instagram.com/user_ig_wanita"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#c99a4b]/70 bg-[#c99a4b]/10 px-4 py-1.5 text-sm text-[#f3e2bb] transition-colors hover:bg-[#c99a4b]/20"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                user_ig_pria
+              </a>
+            </motion.div>
 
-      {/* =====================================================
-          HEADING
-      ====================================================== */}
+            {/* =========================================
+                AMPERSAND
+            ========================================== */}
 
-      <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{
-          duration: 0.9,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="relative z-10 text-center"
-      >
-        <p className="text-[9px] uppercase tracking-[0.45em] text-[#e1d1b3]/70">
-          The Bride & Groom
-        </p>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.7 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="my-12 flex flex-col items-center"
+            >
+              <div className="h-8 w-px bg-gradient-to-b from-transparent to-[#d4af37]/50" />
+              <span className="font-script my-2 text-5xl italic text-[#c99a4b]">
+                &amp;
+              </span>
+              <div className="h-8 w-px bg-gradient-to-t from-transparent to-[#d4af37]/50" />
+            </motion.div>
 
-        <h2 className="mt-4 font-serif text-3xl font-light tracking-wide text-[#fff8eb] drop-shadow-lg">
-          Our Beloved Couple
-        </h2>
-      </motion.div>
+            {/* =========================================
+                GROOM
+            ========================================== */}
 
-      {/* =====================================================
-          BRIDE
-      ====================================================== */}
+            <motion.div
+              className="flex w-full flex-col items-center text-center"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="relative">
+                <div className="relative h-64 w-52 overflow-hidden rounded-full border-2 border-white/80 bg-[#2e2013] shadow-2xl">
+                  <img
+                    src="/images/2.jpeg"
+                    alt="Mempelai pria"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
 
-      <motion.div
-        className="relative z-10 mx-auto mt-14 flex max-w-md flex-col items-center text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{
-          duration: 1,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
-        {/* Decorative frame behind photo */}
+                <img
+                  src="/images/florals/wreath-groom.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -inset-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-contain"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              </div>
 
-        <div className="relative">
+              <p className="font-script mt-8 text-3xl italic text-[#c99a4b]">
+                Putri
+              </p>
 
-          {/* Outer decorative lines */}
-          <div className="pointer-events-none absolute -inset-4 border border-[#d8c29a]/20" />
+              <h3 className="mt-1 text-3xl font-bold text-white sm:text-4xl">
+                Varisa
+              </h3>
 
-          <div className="pointer-events-none absolute -inset-2 border border-[#d8c29a]/10" />
+              <p className="mt-3 text-base font-medium text-white/85">
+                Putra Pertama dari
+              </p>
+              <p className="mt-1 text-base leading-relaxed text-white/75">
+                Bapak Nama Ayah &amp; Ibu Nama Ibu
+              </p>
 
-          {/* Corner ornaments */}
+              <a
+                href="https://instagram.com/user_ig_pria"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#c99a4b]/70 bg-[#c99a4b]/10 px-4 py-1.5 text-sm text-[#f3e2bb] transition-colors hover:bg-[#c99a4b]/20"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+                user_ig_wanita
+              </a>
+            </motion.div>
 
-          <span className="pointer-events-none absolute -left-7 -top-5 text-xl text-[#d8c29a]/70">
-            ❧
-          </span>
+            {/* =========================================
+                CLOSING
+            ========================================== */}
 
-          <span className="pointer-events-none absolute -right-7 -top-5 scale-x-[-1] text-xl text-[#d8c29a]/70">
-            ❧
-          </span>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="mt-14 flex flex-col items-center text-center"
+            >
+              <div className="flex items-center gap-4">
+                <div className="h-px w-10 bg-[#c99a4b]/40" />
+                <span className="text-sm text-[#c99a4b]">❦</span>
+                <div className="h-px w-10 bg-[#c99a4b]/40" />
+              </div>
 
-          <span className="pointer-events-none absolute -bottom-5 -left-6 rotate-[-25deg] text-lg text-[#d8c29a]/60">
-            ❀
-          </span>
-
-          <span className="pointer-events-none absolute -bottom-5 -right-6 rotate-[25deg] text-lg text-[#d8c29a]/60">
-            ❀
-          </span>
-
-          {/* Photo */}
-
-          <div className="relative h-64 w-48 overflow-hidden border border-[#ead5ad]/45 bg-black/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)]">
-            <img
-              src="/images/1.png"
-              alt="Bride"
-              className="h-full w-full object-cover"
-            />
-
-            {/* Image cinematic overlay */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-[#fff2d0]/10" />
+              <p className="mt-6 max-w-xs text-lg italic leading-relaxed text-white/85">
+                Semoga Allah SWT senantiasa melimpahkan keberkahan dalam
+                pernikahan kami.
+              </p>
+            </motion.div>
           </div>
-        </div>
-
-        {/* Name */}
-
-        <div className="mt-8">
-          <div className="mb-2 flex items-center justify-center gap-3">
-            <div className="h-px w-8 bg-[#d8c29a]/40" />
-
-            <span className="text-xs text-[#e0c89c]/70">
-              ✦
-            </span>
-
-            <div className="h-px w-8 bg-[#d8c29a]/40" />
-          </div>
-
-          <h3 className="font-serif text-3xl font-light text-[#fff8eb] drop-shadow-lg">
-            Aryaduta
-          </h3>
-
-          <p className="mt-2 text-[9px] uppercase tracking-[0.3em] text-[#d8c29a]/80">
-            The Bride
-          </p>
-
-          <p className="mt-4 text-xs leading-relaxed text-white/70 drop-shadow-md">
-            Putri pertama dari
-            <br />
-            Bapak Nama Ayah & Ibu Nama Ibu
-          </p>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* =====================================================
-          CENTER AMPERSAND
-      ====================================================== */}
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.7 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 0.8,
-          delay: 0.2,
-        }}
-        className="relative z-10 my-12 flex items-center justify-center gap-5"
-      >
-        <div className="h-px w-12 bg-[#d8c29a]/30" />
-
-        <span className="font-serif text-4xl italic text-[#e4d0a8]/80 drop-shadow-md">
-          &
-        </span>
-
-        <div className="h-px w-12 bg-[#d8c29a]/30" />
-      </motion.div>
-
-      {/* =====================================================
-          GROOM
-      ====================================================== */}
-
-      <motion.div
-        className="relative z-10 mx-auto flex max-w-md flex-col items-center text-center"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{
-          duration: 1,
-          delay: 0.15,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
-        <div className="relative">
-
-          {/* Outer frame */}
-
-          <div className="pointer-events-none absolute -inset-4 border border-[#d8c29a]/20" />
-
-          <div className="pointer-events-none absolute -inset-2 border border-[#d8c29a]/10" />
-
-          {/* Corner ornaments */}
-
-          <span className="pointer-events-none absolute -left-7 -top-5 text-xl text-[#d8c29a]/70">
-            ❧
-          </span>
-
-          <span className="pointer-events-none absolute -right-7 -top-5 scale-x-[-1] text-xl text-[#d8c29a]/70">
-            ❧
-          </span>
-
-          <span className="pointer-events-none absolute -bottom-5 -left-6 rotate-[-25deg] text-lg text-[#d8c29a]/60">
-            ❀
-          </span>
-
-          <span className="pointer-events-none absolute -bottom-5 -right-6 rotate-[25deg] text-lg text-[#d8c29a]/60">
-            ❀
-          </span>
-
-          {/* Photo */}
-
-          <div className="relative h-64 w-48 overflow-hidden border border-[#ead5ad]/45 bg-black/20 shadow-[0_18px_45px_rgba(0,0,0,0.35)]">
-            <img
-              src="/images/2.jpeg"
-              alt="Groom"
-              className="h-full w-full object-cover"
-            />
-
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-[#fff2d0]/10" />
-          </div>
-        </div>
-
-        {/* Name */}
-
-        <div className="mt-8">
-          <div className="mb-2 flex items-center justify-center gap-3">
-            <div className="h-px w-8 bg-[#d8c29a]/40" />
-
-            <span className="text-xs text-[#e0c89c]/70">
-              ✦
-            </span>
-
-            <div className="h-px w-8 bg-[#d8c29a]/40" />
-          </div>
-
-          <h3 className="font-serif text-3xl font-light text-[#fff8eb] drop-shadow-lg">
-            Varisa
-          </h3>
-
-          <p className="mt-2 text-[9px] uppercase tracking-[0.3em] text-[#d8c29a]/80">
-            The Groom
-          </p>
-
-          <p className="mt-4 text-xs leading-relaxed text-white/70 drop-shadow-md">
-            Putra pertama dari
-            <br />
-            Bapak Nama Ayah & Ibu Nama Ibu
-          </p>
-        </div>
-      </motion.div>
-
-      {/* =====================================================
-          BOTTOM ORNAMENT
-      ====================================================== */}
-
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 0.8,
-          delay: 0.3,
-        }}
-        className="relative z-10 mx-auto mt-14 flex max-w-sm items-center justify-center gap-3"
-      >
-        <span className="text-2xl text-[#d8c29a]/60">
-          ❧
-        </span>
-
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#d8c29a]/40 to-transparent" />
-
-        <span className="text-lg text-[#e4d0a8]/70">
-          ✦
-        </span>
-
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#d8c29a]/40 to-transparent" />
-
-        <span className="scale-x-[-1] text-2xl text-[#d8c29a]/60">
-          ❧
-        </span>
-      </motion.div>
-
-      {/* =====================================================
-          SCROLL
+          SCROLL INDICATOR
       ====================================================== */}
 
       <motion.div
@@ -375,26 +303,15 @@ export default function Couple() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{
-          duration: 1,
-          delay: 0.5,
-        }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
-        <span className="text-[8px] uppercase tracking-[0.4em] text-white/45">
-          Scroll
+        <span className="text-[10px] uppercase tracking-[0.3em] text-[#c99a4b]/80">
+          Geser ke bawah
         </span>
-
         <motion.div
-          className="h-7 w-px bg-[#d8c29a]/45"
-          animate={{
-            scaleY: [0.5, 1, 0.5],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="h-7 w-px bg-[#c99a4b]/60"
+          animate={{ scaleY: [0.5, 1, 0.5], opacity: [0.3, 0.8, 0.3] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         />
       </motion.div>
     </section>

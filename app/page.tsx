@@ -6,11 +6,12 @@ import Couple from "@/components/Couple";
 import Event from "@/components/Event";
 import Gallery from "@/components/Gallery";
 import MusicPlayer from "@/components/MusicPlayer";
+import Closing from "@/components/Closing";
 
 export default function Home() {
 return ( <main className="relative min-h-screen w-full overflow-x-hidden">
 
-```
+
   {/* =========================
       GLOBAL VIDEO BACKGROUND
   ========================== */}
@@ -33,6 +34,8 @@ return ( <main className="relative min-h-screen w-full overflow-x-hidden">
     <Event />
 
     <Gallery />
+
+    <Closing />
 
     <MusicPlayer />
   </div>
