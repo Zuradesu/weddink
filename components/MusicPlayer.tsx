@@ -8,7 +8,7 @@ export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    const audio = new Audio("/audio/laguu.mp3");
+    const audio = new Audio("/audio/kusuma.mp3");
 
     audio.loop = true;
     audio.volume = 0.45;

@@ -126,8 +126,8 @@ export default function Couple() {
               <div className="relative">
                 <div className="relative h-64 w-52 overflow-hidden rounded-full border-2 border-white/80 bg-[#2e2013] shadow-2xl">
                   <img
-                    src="/images/1.png"
-                    alt="Mempelai wanita"
+                    src="/images/1.jpg"
+                    alt="Mempelai pria"
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -144,42 +144,22 @@ export default function Couple() {
                 />
               </div>
 
-              <p className="font-script mt-8 text-3xl italic text-[#c99a4b]">
-                Putra
+              <p className="font-serif mt-8 text-3xl italic text-[#c99a4b]">
+                Duta
               </p>
 
-              <h3 className="mt-1 text-3xl font-bold text-white sm:text-4xl">
-                Aryaduta
+              <h3 className="mt-1 text-3xl font-serif font-bold text-white sm:text-4xl">
+                Aryaduta Brilliant Irianto
               </h3>
 
               <p className="mt-3 text-base font-medium text-white/85">
-                Putra Pertama dari
+                Putra dari 
               </p>
               <p className="mt-1 text-base leading-relaxed text-white/75">
                 Bapak Ahwan Irianto ( Alm. ) &amp; Ibu Miftakhul Rohmah
               </p>
 
               {/* Instagram chip */}
-              <a
-                href="https://instagram.com/user_ig_wanita"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#c99a4b]/70 bg-[#c99a4b]/10 px-4 py-1.5 text-sm text-[#f3e2bb] transition-colors hover:bg-[#c99a4b]/20"
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-                user_ig_pria
-              </a>
             </motion.div>
 
             {/* =========================================
@@ -214,7 +194,7 @@ export default function Couple() {
               <div className="relative">
                 <div className="relative h-64 w-52 overflow-hidden rounded-full border-2 border-white/80 bg-[#2e2013] shadow-2xl">
                   <img
-                    src="/images/2.jpeg"
+                    src="/images/2.jpg"
                     alt="Mempelai pria"
                     className="h-full w-full object-cover"
                   />
@@ -231,41 +211,20 @@ export default function Couple() {
                 />
               </div>
 
-              <p className="font-script mt-8 text-3xl italic text-[#c99a4b]">
-                Putri
+              <p className="font-serif mt-8 text-3xl italic text-[#c99a4b]">
+                Risa
               </p>
 
-              <h3 className="mt-1 text-3xl font-bold text-white sm:text-4xl">
-                Varisa
+              <h3 className="mt-1 text-3xl font-serif font-bold text-white sm:text-4xl">
+                Varisa Yunia Sari
               </h3>
 
               <p className="mt-3 text-base font-medium text-white/85">
-                Putra Pertama dari
+                Putri dari
               </p>
               <p className="mt-1 text-base leading-relaxed text-white/75">
-                Bapak Nama Ayah &amp; Ibu Nama Ibu
+                Bapak Misdariyanto &amp; Ibu Katim
               </p>
-
-              <a
-                href="https://instagram.com/user_ig_pria"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#c99a4b]/70 bg-[#c99a4b]/10 px-4 py-1.5 text-sm text-[#f3e2bb] transition-colors hover:bg-[#c99a4b]/20"
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-                user_ig_wanita
-              </a>
             </motion.div>
 
             {/* =========================================

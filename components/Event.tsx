@@ -407,7 +407,7 @@ export default function Event() {
             </p>
 
             <p className="mt-4 max-w-[235px] text-[8px] leading-relaxed text-[#75634d] sm:text-xs">
-              Perumahan Graha Puntadewa Blok D2/17
+              Perumahan Graha Puntadewa Blok D2/12
               <br />
               Pakisjajar, Pakis
               <br />
@@ -434,7 +434,7 @@ export default function Event() {
         ====================================================== */}
 
         <motion.div
-          className="mt-20 flex items-center gap-4"
+          className="mt-10 flex items-center gap-4"
           initial={{
             opacity: 0,
           }}
@@ -462,7 +462,7 @@ export default function Event() {
         ====================================================== */}
 
         <motion.div
-          className="mt-14 flex flex-col items-center gap-2"
+          className="mt-8 flex flex-col items-center gap-2"
           initial={{
             opacity: 0,
           }}
