@@ -2,7 +2,6 @@ import Background from "./Background";
 
 type SectionProps = {
   id?: string;
-
   children: React.ReactNode;
 
   background: {
@@ -11,7 +10,6 @@ type SectionProps = {
   };
 
   overlay?: number;
-
   className?: string;
 };
 

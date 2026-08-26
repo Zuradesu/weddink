@@ -9,36 +9,41 @@ import MusicPlayer from "@/components/MusicPlayer";
 import Closing from "@/components/Closing";
 
 export default function Home() {
-return ( <main className="relative min-h-screen w-full overflow-x-hidden">
+  return (
+    <main className="relative min-h-screen w-full overflow-x-hidden">
 
+      {/* =========================
+          GLOBAL VIDEO BACKGROUND
+      ========================== */}
 
-  {/* =========================
-      GLOBAL VIDEO BACKGROUND
-  ========================== */}
+      <Background
+        type="video"
+        src="/videos/rawr.mp4"
+        overlay={0.3}
+      />
 
-  <Background />
+      {/* =========================
+          SCROLLING CONTENT
+      ========================== */}
 
-  {/* =========================
-      SCROLLING CONTENT
-  ========================== */}
+      <div className="relative z-10">
+        <Opening />
 
-  <div className="relative z-10">
-    <Opening />
+        <WeddingIntro />
 
-    <WeddingIntro />
+        <Quote />
 
-    <Quote />
+        <Couple />
 
-    <Couple />
+        <Event />
 
-    <Event />
+        <Gallery />
 
-    <Gallery />
+        <Closing />
 
-    <Closing />
+        <MusicPlayer />
+      </div>
 
-    <MusicPlayer />
-  </div>
-
-</main>
-)};
+    </main>
+  );
+}
