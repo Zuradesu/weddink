@@ -7,6 +7,7 @@ import Event from "@/components/Event";
 import Gallery from "@/components/Gallery";
 import MusicPlayer from "@/components/MusicPlayer";
 import Closing from "@/components/Closing";
+import Wishes from "@/components/Wishes";
 
 export default function Home() {
   return (
@@ -38,6 +39,8 @@ export default function Home() {
         <Event />
 
         <Gallery />
+
+        <Wishes />
 
         <Closing />
 

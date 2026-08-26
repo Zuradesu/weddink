@@ -369,42 +369,6 @@ export default function Closing() {
             </div>
           </motion.div>
 
-          {/* =================================================
-              QUOTE
-          ================================================== */}
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 15,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.8,
-              delay: 0.95,
-            }}
-            className="mt-10 max-w-[285px]"
-          >
-            <span className="font-serif text-xl text-[#a47d43]">
-              “
-            </span>
-
-            <p className="font-serif text-sm italic leading-relaxed text-[#685542]">
-              Semoga langkah kecil kami menjadi awal
-              dari perjalanan panjang yang penuh
-              cinta, keberkahan, dan kebahagiaan.
-            </p>
-
-            <span className="font-serif text-xl text-[#a47d43]">
-              ”
-            </span>
-          </motion.div>
 
           {/* =================================================
               BOTTOM ORNAMENT

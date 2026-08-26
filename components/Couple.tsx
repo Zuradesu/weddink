@@ -153,10 +153,10 @@ export default function Couple() {
               </h3>
 
               <p className="mt-3 text-base font-medium text-white/85">
-                Putri Pertama dari
+                Putra Pertama dari
               </p>
               <p className="mt-1 text-base leading-relaxed text-white/75">
-                Bapak Nama Ayah &amp; Ibu Nama Ibu
+                Bapak Ahwan Irianto ( Alm. ) &amp; Ibu Miftakhul Rohmah
               </p>
 
               {/* Instagram chip */}
