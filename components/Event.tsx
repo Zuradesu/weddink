@@ -256,7 +256,7 @@ export default function Event() {
           {/* FRAME AKAD */}
 
           <img
-            src="/images/frame.png"
+            src="/images/sigma.PNG"
             alt="Frame Akad Nikah"
             className="block w-[98%] mx-auto object-contain rounded-[16px]"
           />
