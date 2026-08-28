@@ -62,7 +62,6 @@ export default function Couple() {
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#241a10]/40 via-[#241a10]/70 to-[#241a10]/85" />
 
           <div className="relative z-10 flex flex-col items-center">
-
             {/* =========================================
                 BOUQUET + TITLE
             ========================================== */}
@@ -107,8 +106,8 @@ export default function Couple() {
 
               <p className="mt-4 text-base leading-7 text-white/75">
                 Maha Suci Allah yang telah menciptakan makhluk-Nya
-                berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah
-                mengiringi pernikahan kami.
+                berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah mengiringi
+                pernikahan kami.
               </p>
             </motion.div>
 
@@ -134,10 +133,10 @@ export default function Couple() {
 
                 {/* Optional floral wreath overlay around the photo */}
                 <img
-                  src="/images/florals/wreath-bride.png"
+                  src="/images/flowL.png"
                   alt=""
                   aria-hidden="true"
-                  className="pointer-events-none absolute -inset-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-contain"
+                  className="pointer-events-none absolute inset-0 z-20 h-[80%] w-[80%] -translate-x-[20%] translate-y-[42%] object-contain"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";
                   }}
@@ -153,7 +152,7 @@ export default function Couple() {
               </h3>
 
               <p className="mt-3 text-base font-medium text-white/85">
-                Putra dari 
+                Putra dari
               </p>
               <p className="mt-1 text-base leading-relaxed text-white/75">
                 Bapak Ahwan Irianto ( Alm. ) &amp; Ibu Miftakhul Rohmah
@@ -189,7 +188,11 @@ export default function Couple() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              transition={{
+                duration: 1,
+                delay: 0.15,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               <div className="relative">
                 <div className="relative h-64 w-52 overflow-hidden rounded-full border-2 border-white/80 bg-[#2e2013] shadow-2xl">
@@ -201,10 +204,10 @@ export default function Couple() {
                 </div>
 
                 <img
-                  src="/images/florals/wreath-groom.png"
+                  src="/images/flowL.png"
                   alt=""
                   aria-hidden="true"
-                  className="pointer-events-none absolute -inset-10 h-[calc(100%+5rem)] w-[calc(100%+5rem)] object-contain"
+                  className="pointer-events-none absolute inset-0 z-20 h-[80%] w-[80%] -translate-x-[20%] translate-y-[42%] object-contain"
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";
                   }}

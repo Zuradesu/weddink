@@ -3,274 +3,343 @@
 import { motion } from "framer-motion";
 
 export default function Quote() {
-return ( <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-[#d8c29a] px-6 text-white">
+  return (
+    <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-[#d8c29a] px-6 text-white">
 
-```
-  {/* =====================================================
-      BACKGROUND IMAGE
-  ====================================================== */}
+      {/* =====================================================
+          BACKGROUND IMAGE
+      ====================================================== */}
 
-  <motion.div
-    className="absolute inset-0"
-    initial={{ scale: 1.05 }}
-    whileInView={{ scale: 1 }}
-    viewport={{ once: true }}
-    transition={{
-      duration: 2,
-      ease: [0.22, 1, 0.36, 1],
-    }}
-  >
-    <div
-      className="absolute inset-0 bg-cover bg-center"
-      style={{
-        backgroundImage: "url('/images/quote-bg.png')",
-      }}
-    />
-  </motion.div>
-
-
-  {/* =====================================================
-      WARM OVERLAY
-  ====================================================== */}
-
-  {/* Soft cream overlay */}
-  <div className="absolute inset-0 bg-[#5b4630]/25" />
-
-  {/* Darker center overlay for text readability */}
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(65,45,25,0.48),rgba(65,45,25,0.12)_45%,rgba(30,20,12,0.38)_100%)]" />
-
-  {/* Bottom atmospheric fade */}
-  <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#3b291b]/55 to-transparent" />
+      <motion.div
+        className="absolute inset-0"
+        initial={{ scale: 1.05 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{
+          duration: 2,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/images/quote-bg.png')",
+          }}
+        />
+      </motion.div>
 
 
-  {/* =====================================================
-      SUBTLE MOVING LIGHT
-  ====================================================== */}
+      {/* =====================================================
+          WARM OVERLAY
+      ====================================================== */}
 
-  <motion.div
-    className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
-    animate={{
-      scale: [1, 1.04, 1],
-      opacity: [0.25, 0.45, 0.25],
-    }}
-    transition={{
-      duration: 8,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  />
+      {/* Soft cream overlay */}
+      <div className="absolute inset-0 bg-[#5b4630]/25" />
 
-  <motion.div
-    className="absolute -left-32 top-20 h-72 w-72 rounded-full border border-white/10"
-    animate={{
-      y: [0, 15, 0],
-      rotate: [0, 4, 0],
-    }}
-    transition={{
-      duration: 9,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  />
+      {/* Darker center overlay for readability */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(65,45,25,0.48),rgba(65,45,25,0.12)_45%,rgba(30,20,12,0.38)_100%)]" />
 
-  <motion.div
-    className="absolute -right-32 bottom-24 h-80 w-80 rounded-full border border-white/10"
-    animate={{
-      y: [0, -18, 0],
-      rotate: [0, -4, 0],
-    }}
-    transition={{
-      duration: 10,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  />
+      {/* Bottom atmospheric fade */}
+      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#3b291b]/55 to-transparent" />
 
 
-  {/* =====================================================
-      CONTENT
-  ====================================================== */}
+      {/* =====================================================
+          SUBTLE MOVING LIGHT
+      ====================================================== */}
 
-  <div className="relative z-10 mx-auto flex w-full max-w-md flex-col items-center text-center">
+      <motion.div
+        className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10"
+        animate={{
+          scale: [1, 1.04, 1],
+          opacity: [0.25, 0.45, 0.25],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
-    {/* TOP ORNAMENT */}
+      <motion.div
+        className="absolute -left-32 top-20 h-72 w-72 rounded-full border border-white/10"
+        animate={{
+          y: [0, 15, 0],
+          rotate: [0, 4, 0],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
-    <motion.div
-      initial={{
-        opacity: 0,
-        y: -15,
-        scale: 0.8,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        scale: 1,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="mb-8 flex items-center gap-4"
-    >
-      <div className="h-px w-12 bg-[#f5e7c8]/60" />
-
-      <span className="text-xl text-[#f5e7c8]">
-        ❦
-      </span>
-
-      <div className="h-px w-12 bg-[#f5e7c8]/60" />
-    </motion.div>
-
-
-    {/* SMALL INTRO */}
-
-    <motion.p
-      initial={{
-        opacity: 0,
-        y: 10,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.8,
-      }}
-      className="mb-6 text-[9px] uppercase tracking-[0.45em] text-[#f8ecd2]/75"
-    >
-      Sebuah kisah tentang cinta
-    </motion.p>
+      <motion.div
+        className="absolute -right-32 bottom-24 h-80 w-80 rounded-full border border-white/10"
+        animate={{
+          y: [0, -18, 0],
+          rotate: [0, -4, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
 
-    {/* QUOTE */}
+      {/* =====================================================
+          CONTENT
+      ====================================================== */}
 
-    <motion.blockquote
-      initial={{
-        opacity: 0,
-        y: 35,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 1.1,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="font-serif text-[22px] font-light leading-[1.75] text-[#fffaf0] drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)] sm:text-3xl"
-    >
-      “Dan di antara tanda-tanda
-      <br />
-      kekuasaan-Nya ialah Dia
-      <br />
-      menciptakan untukmu
-      <br />
-      pasangan hidup...”
-    </motion.blockquote>
+      <div className="relative z-10 mx-auto flex w-full max-w-md flex-col items-center text-center">
 
+        {/* =================================================
+            TOP ORNAMENT
+        ================================================== */}
 
-    {/* SOURCE */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -15,
+            scale: 0.8,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.9,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="mb-7 flex items-center gap-4"
+        >
+          <div className="h-px w-12 bg-[#f5e7c8]/60" />
 
-    <motion.p
-      initial={{
-        opacity: 0,
-        y: 15,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.8,
-        delay: 0.45,
-      }}
-      className="mt-8 text-[10px] uppercase tracking-[0.38em] text-[#f5e7c8]/80"
-    >
-      Q.S. Ar-Rum : 21
-    </motion.p>
+          <span className="text-xl text-[#f5e7c8]">
+            ❦
+          </span>
+
+          <div className="h-px w-12 bg-[#f5e7c8]/60" />
+        </motion.div>
 
 
-    {/* BOTTOM ORNAMENT */}
+        {/* =================================================
+            SMALL INTRO
+        ================================================== */}
 
-    <motion.div
-      initial={{
-        opacity: 0,
-        scaleX: 0,
-      }}
-      whileInView={{
-        opacity: 1,
-        scaleX: 1,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.9,
-        delay: 0.7,
-      }}
-      className="mt-8 flex items-center gap-3"
-    >
-      <div className="h-px w-10 bg-[#f5e7c8]/50" />
-
-      <span className="text-sm text-[#f5e7c8]/80">
-        ✦
-      </span>
-
-      <div className="h-px w-10 bg-[#f5e7c8]/50" />
-    </motion.div>
-
-  </div>
+        <motion.p
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+          className="mb-6 text-[9px] uppercase tracking-[0.45em] text-[#f8ecd2]/75"
+        >
+          Sebuah kisah tentang cinta
+        </motion.p>
 
 
-  {/* =====================================================
-      SCROLL INDICATOR
-  ====================================================== */}
+        {/* =================================================
+            ARABIC VERSE
+        ================================================== */}
 
-  <motion.div
-    className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2"
-    initial={{
-      opacity: 0,
-    }}
-    whileInView={{
-      opacity: 1,
-    }}
-    viewport={{
-      once: true,
-    }}
-    transition={{
-      duration: 1,
-      delay: 1,
-    }}
-  >
-    <span className="text-[8px] uppercase tracking-[0.4em] text-white/60">
-      Scroll
-    </span>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 25,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 1.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="w-full max-w-[350px]"
+        >
 
-    <motion.div
-      className="h-7 w-px bg-[#f5e7c8]/60"
-      animate={{
-        scaleY: [0.4, 1, 0.4],
-        opacity: [0.3, 0.9, 0.3],
-      }}
-      transition={{
-        duration: 1.6,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-  </motion.div>
+          <p
+            dir="rtl"
+            lang="ar"
+            className="
+              font-serif
+              text-[20px]
+              leading-[2.15]
+              text-[#fffaf0]
+              drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]
+              sm:text-[25px]
+              sm:leading-[2.2]
+            "
+          >
+            وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ
+            أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم
+            مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ
+            لِّقَوْمٍ يَتَفَكَّرُونَ
+          </p>
 
-</section>
-)};
+
+          {/* SEPARATOR */}
+
+          <div className="mx-auto my-7 h-px w-14 bg-[#f5e7c8]/50" />
+
+
+          {/* =================================================
+              INDONESIAN TRANSLATION
+          ================================================== */}
+
+          <p
+            className="
+              font-serif
+              text-[13px]
+              italic
+              leading-[1.9]
+              text-[#f8ecd2]/90
+              drop-shadow-[0_1px_5px_rgba(0,0,0,0.25)]
+              sm:text-[15px]
+            "
+          >
+            “Dan di antara tanda-tanda kebesaran-Nya ialah
+            Dia menciptakan pasangan-pasangan untukmu dari
+            jenismu sendiri, agar kamu merasa tenteram kepadanya,
+            dan Dia menjadikan di antaramu rasa kasih dan sayang.”
+          </p>
+
+        </motion.div>
+
+
+        {/* =================================================
+            SOURCE
+        ================================================== */}
+
+        <motion.p
+          initial={{
+            opacity: 0,
+            y: 15,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.45,
+          }}
+          className="
+            mt-7
+            text-[10px]
+            uppercase
+            tracking-[0.38em]
+            text-[#f5e7c8]/80
+          "
+        >
+          Q.S. Ar-Rum : 21
+        </motion.p>
+
+
+        {/* =================================================
+            BOTTOM ORNAMENT
+        ================================================== */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            scaleX: 0,
+          }}
+          whileInView={{
+            opacity: 1,
+            scaleX: 1,
+          }}
+          viewport={{
+            once: true,
+          }}
+          transition={{
+            duration: 0.9,
+            delay: 0.7,
+          }}
+          className="mt-8 flex items-center gap-3"
+        >
+          <div className="h-px w-10 bg-[#f5e7c8]/50" />
+
+          <span className="text-sm text-[#f5e7c8]/80">
+            ✦
+          </span>
+
+          <div className="h-px w-10 bg-[#f5e7c8]/50" />
+        </motion.div>
+
+      </div>
+
+
+      {/* =====================================================
+          SCROLL INDICATOR
+      ====================================================== */}
+
+      <motion.div
+        className="
+          absolute
+          bottom-6
+          left-1/2
+          z-20
+          flex
+          -translate-x-1/2
+          flex-col
+          items-center
+          gap-2
+        "
+        initial={{
+          opacity: 0,
+        }}
+        whileInView={{
+          opacity: 1,
+        }}
+        viewport={{
+          once: true,
+        }}
+        transition={{
+          duration: 1,
+          delay: 1,
+        }}
+      >
+
+        <span className="text-[8px] uppercase tracking-[0.4em] text-white/60">
+          Scroll
+        </span>
+
+        <motion.div
+          className="h-7 w-px bg-[#f5e7c8]/60"
+          animate={{
+            scaleY: [0.4, 1, 0.4],
+            opacity: [0.3, 0.9, 0.3],
+          }}
+          transition={{
+            duration: 1.6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+      </motion.div>
+
+    </section>
+  );
+}
