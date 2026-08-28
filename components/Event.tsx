@@ -363,7 +363,7 @@ export default function Event() {
           {/* FRAME RESEPSI */}
 
           <img
-            src="/images/frame.png"
+            src="/images/sigma.PNG"
             alt="Frame Resepsi"
             className="block w-[94%] mx-auto object-contain rounded-[16px]"
           />
