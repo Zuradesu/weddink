@@ -5,13 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // Setiap baris berisi 2 foto: satu kecil (flex-[1]) dan satu lebar (flex-[2]).
 // Urutan kecil/lebar dibalik tiap baris untuk bikin pola zigzag/bata selang-seling.
+
 const photos = [
   { src: "/images/3.jpg", alt: "Wedding moment 1" },
-  { src: "/images/4.jpg", alt: "Wedding moment 2" },
-  { src: "/images/5.jpg", alt: "Wedding moment 3" },
-  { src: "/images/6.jpg", alt: "Wedding moment 4" },
-  { src: "/images/7.jpg", alt: "Wedding moment 5" },
-  { src: "/images/8.jpg", alt: "Wedding moment 6" },
+  // { src: "/images/4.jpg", alt: "Wedding moment 2" },
+  // { src: "/images/5.jpg", alt: "Wedding moment 3" },
+  // { src: "/images/6.jpg", alt: "Wedding moment 4" },
+  // { src: "/images/7.jpg", alt: "Wedding moment 5" },
+  // { src: "/images/8.jpg", alt: "Wedding moment 6" },
 ];
 
 // Kelompokkan foto jadi baris berisi 2 foto masing-masing
@@ -25,7 +26,7 @@ const photoRows = photos.reduce<(typeof photos)[]>((rows, photo, i) => {
 const highlights = [
   { src: "/images/3.jpg", alt: "Highlight 1" },
   { src: "/images/5.jpg", alt: "Highlight 2" },
-  { src: "/images/6.jpg", alt: "Highlight 3" },
+  { src: "/images/7.jpg", alt: "Highlight 3" },
   { src: "/images/8.jpg", alt: "Highlight 4" },
 ];
 
