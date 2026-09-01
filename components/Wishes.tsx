@@ -1,59 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { createClient } from "@supabase/supabase-js";
 
-/**
- * UI ONLY — no backend yet.
- * RSVP and Wishes are separated into two boxes.
- * Supabase wiring comes in the next pass.
- */
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+);
+
+// =====================================================
+// TYPES
+// =====================================================
 
 type Attendance = "hadir" | "tidak_hadir" | null;
 
 type Wish = {
-  id: string;
-  name: string;
-  message: string;
+  id: number;
+  nama: string;
+  pesan: string;
+  created_at: string;
 };
 
 type RSVP = {
-  id: string;
-  name: string;
-  attendance: "hadir" | "tidak_hadir";
+  id: number;
+  nama: string;
+  absen: boolean;
+  created_at: string;
 };
 
-const DUMMY_WISHES: Wish[] = [
-  {
-    id: "1",
-    name: "Fazaa",
-    message: "Bagusss banget undangannya, murah lagii ❤️🥳🥳",
-  },
-  {
-    id: "2",
-    name: "Firman",
-    message: "Masyaallahhhh cantiknyaaa 😍",
-  },
-  {
-    id: "3",
-    name: "Nindy",
-    message:
-      "Selamat menempuh hidup baru, semoga sakinah mawaddah warahmah 🤍",
-  },
-];
-
-const DUMMY_RSVP: RSVP[] = [
-  {
-    id: "1",
-    name: "Fazaa",
-    attendance: "hadir",
-  },
-  {
-    id: "2",
-    name: "Firman",
-    attendance: "hadir",
-  },
-];
+// =====================================================
+// COMPONENT
+// =====================================================
 
 export default function Wishes() {
   // =====================================================
@@ -62,7 +40,7 @@ export default function Wishes() {
 
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const [wishes, setWishes] = useState<Wish[]>(DUMMY_WISHES);
+  const [wishes, setWishes] = useState<Wish[]>([]);
 
   // =====================================================
   // RSVP STATE
@@ -70,50 +48,128 @@ export default function Wishes() {
 
   const [rsvpName, setRsvpName] = useState("");
   const [attendance, setAttendance] = useState<Attendance>(null);
-  const [rsvps, setRsvps] = useState<RSVP[]>(DUMMY_RSVP);
+  const [rsvps, setRsvps] = useState<RSVP[]>([]);
+
+  // =====================================================
+  // STATUS
+  // =====================================================
+
+  const [loading, setLoading] = useState(true);
+  const [submittingWish, setSubmittingWish] = useState(false);
+  const [submittingRsvp, setSubmittingRsvp] = useState(false);
+  const [successType, setSuccessType] = useState<"rsvp" | "wish" | null>(null);
+
+  // =====================================================
+  // GET DATA FROM SUPABASE
+  // =====================================================
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+
+      const [wishesResult, rsvpResult] = await Promise.all([
+        supabase
+          .from("wishes")
+          .select("*")
+          .order("created_at", { ascending: false }),
+
+        supabase
+          .from("rsvp")
+          .select("*")
+          .order("created_at", { ascending: false }),
+      ]);
+
+      if (wishesResult.error) {
+        console.error("Error mengambil wishes:", wishesResult.error);
+      } else {
+        setWishes(wishesResult.data || []);
+      }
+
+      if (rsvpResult.error) {
+        console.error("Error mengambil RSVP:", rsvpResult.error);
+      } else {
+        setRsvps(rsvpResult.data || []);
+      }
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
 
   // =====================================================
   // WISH SUBMIT
   // =====================================================
 
-  const handleWishSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleWishSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!name.trim() || !message.trim()) return;
+  if (!name.trim() || !message.trim()) return;
 
-    setWishes((prev) => [
+  setSubmittingWish(true);
+
+  const { data, error } = await supabase
+    .from("wishes")
+    .insert([
       {
-        id: crypto.randomUUID(),
-        name: name.trim(),
-        message: message.trim(),
+        nama: name.trim(),
+        pesan: message.trim(),
       },
-      ...prev,
-    ]);
+    ])
+    .select()
+    .single();
 
-    setName("");
-    setMessage("");
-  };
+  if (error) {
+    console.error("Error mengirim wish:", error);
+    alert("Ucapan gagal dikirim. Coba lagi.");
+    setSubmittingWish(false);
+    return;
+  }
+
+  // Tambahkan langsung ke tampilan
+  setWishes((prev) => [data, ...prev]);
+
+  // Reset form
+  setName("");
+  setMessage("");
+
+  // Tampilkan custom success modal
+  setSuccessType("wish");
+
+  setSubmittingWish(false);
+};
 
   // =====================================================
   // RSVP SUBMIT
   // =====================================================
 
-  const handleRsvpSubmit = (e: React.FormEvent) => {
+  const handleRsvpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!rsvpName.trim() || !attendance) return;
 
-    setRsvps((prev) => [
+    setSubmittingRsvp(true);
+
+    const { data, error } = await supabase.from("rsvp").insert([
       {
-        id: crypto.randomUUID(),
-        name: rsvpName.trim(),
-        attendance,
+        nama: rsvpName.trim(),
+        absen: attendance === "hadir",
       },
-      ...prev,
     ]);
+
+    if (error) {
+      console.error("Error mengirim RSVP:", error);
+      alert("RSVP gagal dikirim. Coba lagi.");
+      setSubmittingRsvp(false);
+      return;
+    }
+
+    setSuccessType("rsvp");
 
     setRsvpName("");
     setAttendance(null);
+
+    setSubmittingRsvp(false);
   };
 
   return (
@@ -153,13 +209,15 @@ export default function Wishes() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="relative overflow-hidden rounded-[48px] border-2 border-[#c99a4b]/70 bg-[#241a10]/78 px-6 py-14 shadow-[0_0_50px_rgba(201,154,75,0.15)] backdrop-blur-[3px] sm:px-9"
         >
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#241a10]/40 via-[#241a10]/70 to-[#241a10]/85" />
 
           <div className="relative z-10 flex flex-col items-center">
-
             {/* =================================================
                 MAIN HEADING
             ================================================== */}
@@ -192,9 +250,7 @@ export default function Wishes() {
               className="mt-8 w-full rounded-3xl border border-[#c99a4b]/30 bg-white/[0.04] p-5"
             >
               <div className="text-center">
-                <h3 className="font-script text-3xl italic text-white">
-                  RSVP
-                </h3>
+                <h3 className="font-script text-3xl italic text-white">RSVP</h3>
 
                 <p className="mt-1 text-xs text-white/50">
                   Konfirmasi kehadiran Anda.
@@ -242,9 +298,10 @@ export default function Wishes() {
 
                 <button
                   type="submit"
-                  className="mt-5 w-full rounded-full bg-gradient-to-r from-[#c99a4b] to-[#dcb872] py-3 text-sm font-semibold tracking-wide text-[#241a10] shadow-lg transition-transform active:scale-[0.98]"
+                  disabled={submittingRsvp}
+                  className="mt-5 w-full rounded-full bg-gradient-to-r from-[#c99a4b] to-[#dcb872] py-3 text-sm font-semibold tracking-wide text-[#241a10] shadow-lg transition-transform active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Kirim RSVP
+                  {submittingRsvp ? "Mengirim..." : "Kirim RSVP"}
                 </button>
               </form>
             </motion.div>
@@ -290,9 +347,10 @@ export default function Wishes() {
 
                 <button
                   type="submit"
-                  className="mt-4 w-full rounded-full bg-gradient-to-r from-[#c99a4b] to-[#dcb872] py-3 text-sm font-semibold tracking-wide text-[#241a10] shadow-lg transition-transform active:scale-[0.98]"
+                  disabled={submittingWish}
+                  className="mt-4 w-full rounded-full bg-gradient-to-r from-[#c99a4b] to-[#dcb872] py-3 text-sm font-semibold tracking-wide text-[#241a10] shadow-lg transition-transform active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  Kirim Ucapan
+                  {submittingWish ? "Mengirim..." : "Kirim Ucapan"}
                 </button>
               </div>
             </motion.form>
@@ -306,31 +364,161 @@ export default function Wishes() {
                 Ucapan & Doa
               </p>
 
-              <AnimatePresence initial={false}>
-                {wishes.map((wish) => (
-                  <motion.div
-                    key={wish.id}
-                    layout
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="rounded-2xl border border-[#c99a4b]/25 bg-white/[0.06] px-5 py-4 text-left"
-                  >
-                    <p className="text-sm font-semibold text-white">
-                      {wish.name}
-                    </p>
+              {loading ? (
+                <p className="py-5 text-center text-sm text-white/40">
+                  Memuat ucapan...
+                </p>
+              ) : wishes.length === 0 ? (
+                <p className="py-5 text-center text-sm text-white/40">
+                  Belum ada ucapan.
+                </p>
+              ) : (
+                <AnimatePresence initial={false}>
+                  {wishes.map((wish) => (
+                    <motion.div
+                      key={wish.id}
+                      layout
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="rounded-2xl border border-[#c99a4b]/25 bg-white/[0.06] px-5 py-4 text-left"
+                    >
+                      <p className="text-sm font-semibold text-white">
+                        {wish.nama}
+                      </p>
 
-                    <p className="mt-1.5 text-sm leading-relaxed text-white/75">
-                      {wish.message}
-                    </p>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+                      <p className="mt-1.5 text-sm leading-relaxed text-white/75">
+                        {wish.pesan}
+                      </p>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              )}
             </div>
-
           </div>
         </motion.div>
+
+        <AnimatePresence>
+          {successType && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 px-6 backdrop-blur-sm"
+              onClick={() => setSuccessType(null)}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{
+                  duration: 0.35,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-sm rounded-[32px] border border-[#c99a4b]/50 bg-[#241a10] p-7 text-center shadow-[0_0_60px_rgba(201,154,75,0.2)]"
+              >
+                {/* Icon */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    delay: 0.15,
+                    type: "spring",
+                    stiffness: 200,
+                  }}
+                  className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#c99a4b]/40 bg-[#c99a4b]/10 text-2xl"
+                >
+                  {successType === "rsvp" ? "💌" : "❤️"}
+                </motion.div>
+
+                {/* Title */}
+                <h3 className="mt-5 font-script text-4xl italic text-white">
+                  {successType === "rsvp"
+                    ? "Terima Kasih!"
+                    : "Ucapan Terkirim!"}
+                </h3>
+
+                {/* Message */}
+                <p className="mt-3 text-sm leading-relaxed text-white/65">
+                  {successType === "rsvp"
+                    ? "Konfirmasi kehadiran kamu sudah berhasil dikirim."
+                    : "Ucapan dan doa kamu sudah berhasil dikirim. Terima kasih atas doanya ❤️"}
+                </p>
+
+                {/* Close */}
+                <button
+                  type="button"
+                  onClick={() => setSuccessType(null)}
+                  className="mt-6 w-full rounded-full bg-gradient-to-r from-[#c99a4b] to-[#dcb872] py-3 text-sm font-semibold text-[#241a10] shadow-lg transition-transform active:scale-[0.98]"
+                >
+                  Tutup
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {successType && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 px-6 backdrop-blur-sm"
+              onClick={() => setSuccessType(null)}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{
+                  duration: 0.35,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-sm rounded-[32px] border border-[#c99a4b]/50 bg-[#241a10] p-7 text-center shadow-[0_0_60px_rgba(201,154,75,0.2)]"
+              >
+                {/* Icon */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    delay: 0.15,
+                    type: "spring",
+                    stiffness: 200,
+                  }}
+                  className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[#c99a4b]/40 bg-[#c99a4b]/10 text-2xl"
+                >
+                  {successType === "rsvp" ? "💌" : "❤️"}
+                </motion.div>
+
+                {/* Title */}
+                <h3 className="mt-5 font-script text-4xl italic text-white">
+                  {successType === "rsvp"
+                    ? "Terima Kasih!"
+                    : "Ucapan Terkirim!"}
+                </h3>
+
+                {/* Message */}
+                <p className="mt-3 text-sm leading-relaxed text-white/65">
+                  {successType === "rsvp"
+                    ? "Konfirmasi kehadiran kamu sudah berhasil dikirim."
+                    : "Ucapan dan doa kamu sudah berhasil dikirim. Terima kasih atas doanya ❤️"}
+                </p>
+
+                {/* Close */}
+                <button
+                  type="button"
+                  onClick={() => setSuccessType(null)}
+                  className="mt-6 w-full rounded-full bg-gradient-to-r from-[#c99a4b] to-[#dcb872] py-3 text-sm font-semibold text-[#241a10] shadow-lg transition-transform active:scale-[0.98]"
+                >
+                  Tutup
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
