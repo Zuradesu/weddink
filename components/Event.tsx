@@ -419,7 +419,7 @@ export default function Event() {
             {/* MAP BUTTON */}
 
             <a
-              href="https://maps.google.com/?q=Perumahan+Graha+Puntadewa+Blok+D2%2F17+Pakisjajar+Pakis+Malang"
+              href="https://maps.app.goo.gl/at2vXLe7TBvCKqf6A"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 rounded-full border border-[#806747] bg-[#806747]/10 px-5 py-2 text-[9px] uppercase tracking-[0.2em] text-[#5d4932] transition-all duration-300 hover:bg-[#806747] hover:text-white"
